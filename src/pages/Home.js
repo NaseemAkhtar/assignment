@@ -29,13 +29,13 @@ function Home() {
             <Row className="card_container" >
                 {categoryLoading ?
                     Array(6).fill('_').map((card, ind) => (
-                        <Col key={ind} sm={3} className="my-4">
+                        <Col key={ind} sm={3} className="my-3">
                             <CardLoader key={ind} />
                         </Col>
                     ))
                     :
                     categoryData?.map(card => (
-                        <Col key={card.id} sm={3} className="my-4" >
+                        <Col key={card.id} sm={3} className="my-3" >
                             <CardBlk card={card} />
                         </Col>
                     ))
