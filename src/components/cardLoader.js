@@ -4,7 +4,7 @@ import { Card, Placeholder } from 'react-bootstrap';
 function CardLoader() {
    
     return (
-        <Card style={{ width: '18rem' }}>
+        <Card>
             <Card.Img variant="top" src="holder.js/100px180" />
             <Card.Body>
                 <Placeholder as={Card.Title} animation="glow">

@@ -4,7 +4,7 @@ import { Card } from 'react-bootstrap';
 function CardBlk({card}) {
    
     return (
-        <Card style={{ width: '18rem' }}>
+        <Card>
             <Card.Img variant="top" src={card.image} />
             <Card.Body>
                 <Card.Title>{card.title}</Card.Title>
