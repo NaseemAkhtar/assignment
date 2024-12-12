@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 
-const useFetch = (url, options = {}) => {
-    const [data, setData] = useState(null);
+const useFetch = (url, category="", options = {}) => {
+    const [data, setData] = useState({});
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
@@ -14,7 +14,7 @@ const useFetch = (url, options = {}) => {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
                 const result = await response.json();
-                setData(result);
+                setData(prev=> ({...prev, [category]:result}));
             } catch (err) {
                 setError(err);
             } finally {
@@ -22,7 +22,7 @@ const useFetch = (url, options = {}) => {
             }
         };
 
-        if (url) {
+        if (url && !data[category]) {
             fetchData();
         }
     }, [url]);

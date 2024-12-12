@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react'
-import { Card, Placeholder, Row, Col } from 'react-bootstrap';
+import React, {useState} from 'react'
+import { Row, Col } from 'react-bootstrap';
 import config from "../config"
 import Header from '../components/header';
 import Hero from '../components/hero';
@@ -11,9 +11,10 @@ import CardLoader from '../components/cardLoader';
 import CardBlk from '../components/card';
 
 function Home() {
-    const [category, setCategory] = useState(null)
-    const { data, loading, error } = useFetch(`${config.restEndpoint}/categories`);
-    const { data: categoryData, loading: categoryLoading, error: categoryError } = useFetch(`${config.restEndpoint}/category/${category ? category : 'electronics'}`);
+    const [category, setCategory] = useState('electronics')
+    const [persistData, setPersistData] = useState({}) 
+    const { data, loading, error } = useFetch(`${config.restEndpoint}/categories`, 'tag');
+    const { data: categoryData, loading: categoryLoading, error: categoryError } = useFetch(`${config.restEndpoint}/category/${category}`,category);
 
     const handleCategory = (tag) => {
         setCategory(tag)
@@ -23,7 +24,7 @@ function Home() {
     <>
         <Header />
         <Hero />
-        <Tags tags={data} fetchTag={handleCategory} />
+        {!!data && <Tags tags={data['tag']} fetchTag={handleCategory} />}
 
         <div className='container'>
             <Row className="card_container" >
@@ -34,7 +35,7 @@ function Home() {
                         </Col>
                     ))
                     :
-                    categoryData?.map(card => (
+                    categoryData?.[category]?.map(card => (
                         <Col key={card.id} sm={3} className="my-3" >
                             <CardBlk card={card} />
                         </Col>
